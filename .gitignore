@@ -64,3 +64,5 @@ PCB/SensorNode.s#6
 PCB/SensorNode.s#8
 PCB/SensorNode.s#9
 *.s#9
+PCB/.SensorNode.brd.lck
+*.lck
