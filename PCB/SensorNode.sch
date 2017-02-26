@@ -6651,13 +6651,13 @@ Allows current flow when high potential at base.</description>
 <instance part="JP2" gate="G$1" x="233.68" y="137.16" rot="MR0"/>
 <instance part="BT1" gate="G$1" x="228.6" y="147.32"/>
 <instance part="P+8" gate="VCC" x="236.22" y="109.22" rot="R180"/>
-<instance part="D1" gate="G$1" x="386.08" y="81.28" rot="R90"/>
-<instance part="D2" gate="G$1" x="386.08" y="68.58" rot="R90"/>
-<instance part="D3" gate="G$1" x="386.08" y="93.98" rot="R90"/>
-<instance part="R17" gate="G$1" x="375.92" y="81.28"/>
-<instance part="U$20" gate="G$1" x="408.94" y="60.96"/>
-<instance part="R18" gate="G$1" x="375.92" y="93.98"/>
-<instance part="R19" gate="G$1" x="375.92" y="68.58"/>
+<instance part="D1" gate="G$1" x="414.02" y="78.74" rot="R90"/>
+<instance part="D2" gate="G$1" x="414.02" y="66.04" rot="R90"/>
+<instance part="D3" gate="G$1" x="414.02" y="91.44" rot="R90"/>
+<instance part="R17" gate="G$1" x="403.86" y="78.74"/>
+<instance part="U$20" gate="G$1" x="436.88" y="58.42"/>
+<instance part="R18" gate="G$1" x="403.86" y="91.44"/>
+<instance part="R19" gate="G$1" x="403.86" y="66.04"/>
 <instance part="P+9" gate="VCC" x="363.22" y="139.7"/>
 <instance part="R20" gate="G$1" x="200.66" y="137.16" rot="R90"/>
 <instance part="R14" gate="G$1" x="195.58" y="106.68" rot="R90"/>
@@ -6690,13 +6690,13 @@ Allows current flow when high potential at base.</description>
 <instance part="U$19" gate="G$1" x="213.36" y="152.4"/>
 <instance part="U8" gate="G$1" x="218.44" y="109.22"/>
 <instance part="GND6" gate="1" x="205.74" y="96.52"/>
-<instance part="R15" gate="G$1" x="111.76" y="-35.56" rot="R270"/>
-<instance part="U$22" gate="G$1" x="83.82" y="-55.88"/>
-<instance part="P+12" gate="VCC" x="111.76" y="-22.86"/>
+<instance part="R15" gate="G$1" x="109.22" y="-38.1" rot="R270"/>
+<instance part="U$22" gate="G$1" x="81.28" y="-58.42"/>
+<instance part="P+12" gate="VCC" x="109.22" y="-25.4"/>
 <instance part="R16" gate="G$1" x="109.22" y="-2.54" rot="R270"/>
 <instance part="U$23" gate="G$1" x="81.28" y="-22.86"/>
 <instance part="P+13" gate="VCC" x="109.22" y="10.16"/>
-<instance part="S4" gate="G$1" x="93.98" y="-45.72"/>
+<instance part="S4" gate="G$1" x="91.44" y="-48.26"/>
 <instance part="S5" gate="G$1" x="91.44" y="-12.7"/>
 <instance part="S1" gate="G$1" x="411.48" y="134.62"/>
 <instance part="S2" gate="G$1" x="411.48" y="121.92"/>
@@ -6813,17 +6813,17 @@ Allows current flow when high potential at base.</description>
 </segment>
 <segment>
 <pinref part="U$20" gate="G$1" pin="GND"/>
-<wire x1="408.94" y1="63.5" x2="408.94" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="436.88" y1="60.96" x2="436.88" y2="66.04" width="0.1524" layer="91"/>
 <pinref part="D1" gate="G$1" pin="C"/>
-<wire x1="408.94" y1="68.58" x2="408.94" y2="81.28" width="0.1524" layer="91"/>
-<wire x1="408.94" y1="81.28" x2="391.16" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="436.88" y1="66.04" x2="436.88" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="436.88" y1="78.74" x2="419.1" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="D3" gate="G$1" pin="C"/>
-<wire x1="391.16" y1="93.98" x2="408.94" y2="93.98" width="0.1524" layer="91"/>
-<wire x1="408.94" y1="93.98" x2="408.94" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="419.1" y1="91.44" x2="436.88" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="436.88" y1="91.44" x2="436.88" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="D2" gate="G$1" pin="C"/>
-<wire x1="391.16" y1="68.58" x2="408.94" y2="68.58" width="0.1524" layer="91"/>
-<junction x="408.94" y="68.58"/>
-<junction x="408.94" y="81.28"/>
+<wire x1="419.1" y1="66.04" x2="436.88" y2="66.04" width="0.1524" layer="91"/>
+<junction x="436.88" y="66.04"/>
+<junction x="436.88" y="78.74"/>
 </segment>
 <segment>
 <pinref part="U6" gate="G$1" pin="GND"/>
@@ -6859,8 +6859,8 @@ Allows current flow when high potential at base.</description>
 </segment>
 <segment>
 <pinref part="U$22" gate="G$1" pin="GND"/>
-<wire x1="83.82" y1="-53.34" x2="83.82" y2="-45.72" width="0.1524" layer="91"/>
-<wire x1="83.82" y1="-45.72" x2="88.9" y2="-45.72" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="-55.88" x2="81.28" y2="-48.26" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="-48.26" x2="86.36" y2="-48.26" width="0.1524" layer="91"/>
 <pinref part="S4" gate="G$1" pin="1"/>
 </segment>
 <segment>
@@ -7292,14 +7292,15 @@ Allows current flow when high potential at base.</description>
 <net name="PROG" class="0">
 <segment>
 <wire x1="182.88" y1="127" x2="190.5" y2="127" width="0.1524" layer="91"/>
-<wire x1="190.5" y1="127" x2="190.5" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="190.5" y1="127" x2="190.5" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="U4" gate="G$1" pin="PROG"/>
-<wire x1="190.5" y1="116.84" x2="182.88" y2="111.76" width="0.1524" layer="91"/>
-<wire x1="195.58" y1="111.76" x2="195.58" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="195.58" y1="116.84" x2="190.5" y2="116.84" width="0.1524" layer="91"/>
-<junction x="190.5" y="116.84"/>
+<wire x1="195.58" y1="111.76" x2="195.58" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="114.3" x2="190.5" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="R14" gate="G$1" pin="2"/>
+<wire x1="190.5" y1="114.3" x2="182.88" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="R12" gate="G$1" pin="2"/>
+<wire x1="182.88" y1="114.3" x2="182.88" y2="111.76" width="0.1524" layer="91"/>
+<junction x="190.5" y="114.3"/>
 </segment>
 </net>
 <net name="STAT" class="0">
@@ -7310,7 +7311,7 @@ Allows current flow when high potential at base.</description>
 <pinref part="D4" gate="G$1" pin="C"/>
 </segment>
 </net>
-<net name="VIN" class="0">
+<net name="VBUS" class="0">
 <segment>
 <wire x1="160.02" y1="101.6" x2="160.02" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="144.78" y1="127" x2="144.78" y2="129.54" width="0.1524" layer="91"/>
@@ -7349,6 +7350,8 @@ Allows current flow when high potential at base.</description>
 <wire x1="373.38" y1="109.22" x2="363.22" y2="109.22" width="0.1524" layer="91"/>
 <pinref part="R22" gate="G$1" pin="2"/>
 <pinref part="R23" gate="G$1" pin="2"/>
+<junction x="363.22" y="134.62"/>
+<junction x="363.22" y="121.92"/>
 </segment>
 <segment>
 <pinref part="P+10" gate="VCC" pin="VCC"/>
@@ -7375,7 +7378,7 @@ Allows current flow when high potential at base.</description>
 <segment>
 <pinref part="R15" gate="G$1" pin="1"/>
 <pinref part="P+12" gate="VCC" pin="VCC"/>
-<wire x1="111.76" y1="-30.48" x2="111.76" y2="-25.4" width="0.1524" layer="91"/>
+<wire x1="109.22" y1="-33.02" x2="109.22" y2="-27.94" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="R16" gate="G$1" pin="1"/>
@@ -7396,39 +7399,39 @@ Allows current flow when high potential at base.</description>
 <segment>
 <pinref part="R18" gate="G$1" pin="2"/>
 <pinref part="D3" gate="G$1" pin="A"/>
-<wire x1="381" y1="93.98" x2="383.54" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="408.94" y1="91.44" x2="411.48" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$26" class="0">
 <segment>
 <pinref part="R17" gate="G$1" pin="2"/>
 <pinref part="D1" gate="G$1" pin="A"/>
-<wire x1="381" y1="81.28" x2="383.54" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="408.94" y1="78.74" x2="411.48" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$27" class="0">
 <segment>
 <pinref part="R19" gate="G$1" pin="2"/>
 <pinref part="D2" gate="G$1" pin="A"/>
-<wire x1="381" y1="68.58" x2="383.54" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="408.94" y1="66.04" x2="411.48" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$28" class="0">
 <segment>
 <pinref part="R18" gate="G$1" pin="1"/>
-<wire x1="370.84" y1="93.98" x2="355.6" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="398.78" y1="91.44" x2="383.54" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$29" class="0">
 <segment>
 <pinref part="R17" gate="G$1" pin="1"/>
-<wire x1="370.84" y1="81.28" x2="355.6" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="398.78" y1="78.74" x2="383.54" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$30" class="0">
 <segment>
 <pinref part="R19" gate="G$1" pin="1"/>
-<wire x1="370.84" y1="68.58" x2="355.6" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="398.78" y1="66.04" x2="383.54" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$31" class="0">
@@ -7471,7 +7474,7 @@ Allows current flow when high potential at base.</description>
 <wire x1="279.4" y1="35.56" x2="264.16" y2="35.56" width="0.1524" layer="91"/>
 <label x="266.7" y="35.56" size="1.778" layer="95"/>
 <label x="266.7" y="35.56" size="1.778" layer="95"/>
-<label x="358.14" y="68.58" size="1.778" layer="95"/>
+<label x="386.08" y="66.04" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="IO14" class="0">
@@ -7479,7 +7482,7 @@ Allows current flow when high potential at base.</description>
 <pinref part="U2" gate="G$1" pin="IO14"/>
 <label x="266.7" y="38.1" size="1.778" layer="95"/>
 <wire x1="279.4" y1="38.1" x2="264.16" y2="38.1" width="0.1524" layer="91"/>
-<label x="358.14" y="81.28" size="1.778" layer="95"/>
+<label x="386.08" y="78.74" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="IO27" class="0">
@@ -7487,7 +7490,7 @@ Allows current flow when high potential at base.</description>
 <pinref part="U2" gate="G$1" pin="IO27"/>
 <wire x1="279.4" y1="40.64" x2="264.16" y2="40.64" width="0.1524" layer="91"/>
 <label x="266.7" y="40.64" size="1.778" layer="95"/>
-<label x="358.14" y="93.98" size="1.778" layer="95"/>
+<label x="386.08" y="91.44" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$35" class="0">
@@ -7666,7 +7669,7 @@ Allows current flow when high potential at base.</description>
 <wire x1="327.66" y1="35.56" x2="342.9" y2="35.56" width="0.1524" layer="91"/>
 <label x="335.28" y="35.56" size="1.778" layer="95"/>
 <label x="114.3" y="17.78" size="1.778" layer="95" rot="MR0"/>
-<label x="127" y="-45.72" size="1.778" layer="95" rot="MR0"/>
+<label x="124.46" y="-48.26" size="1.778" layer="95" rot="MR0"/>
 </segment>
 </net>
 <net name="N$48" class="0">
@@ -7683,11 +7686,11 @@ Allows current flow when high potential at base.</description>
 </net>
 <net name="N$24" class="0">
 <segment>
-<wire x1="99.06" y1="-45.72" x2="111.76" y2="-45.72" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="-48.26" x2="109.22" y2="-48.26" width="0.1524" layer="91"/>
 <pinref part="R15" gate="G$1" pin="2"/>
-<wire x1="111.76" y1="-45.72" x2="129.54" y2="-45.72" width="0.1524" layer="91"/>
-<wire x1="111.76" y1="-40.64" x2="111.76" y2="-45.72" width="0.1524" layer="91"/>
-<junction x="111.76" y="-45.72"/>
+<wire x1="109.22" y1="-48.26" x2="127" y2="-48.26" width="0.1524" layer="91"/>
+<wire x1="109.22" y1="-43.18" x2="109.22" y2="-48.26" width="0.1524" layer="91"/>
+<junction x="109.22" y="-48.26"/>
 <pinref part="S4" gate="G$1" pin="2"/>
 </segment>
 </net>
