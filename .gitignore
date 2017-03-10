@@ -69,3 +69,16 @@ PCB/.SensorNode.brd.lck
 PCB/SensorNode.s##
 PCB/SensorNode.pro
 *.job
+*.GTP
+PCB/SensorNode.GTL
+*.GTO
+PCB/SensorNode.TXT
+*.GTS
+PCB/SensorNode.gpi
+*.GML
+PCB/SensorNode.GBS
+*.GBO
+PCB/SensorNode.GBL
+*.rar
+PCB/SensorNode.b##
+*.dri

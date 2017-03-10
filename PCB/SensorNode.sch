@@ -11567,10 +11567,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <approved hash="113,1,269.477,230.001,JP1,,,,,"/>
 <approved hash="113,1,419.777,129.472,J1,,,,,"/>
 <approved hash="113,1,332.063,129.472,J2,,,,,"/>
-<approved hash="115,1,259.08,123.19,TXD1,,,,,"/>
-<approved hash="115,1,31.75,99.06,RTS,,,,,"/>
 <approved hash="115,1,261.62,123.19,RTS1,,,,,"/>
+<approved hash="115,1,259.08,123.19,TXD1,,,,,"/>
 <approved hash="115,1,31.75,114.3,DTR,,,,,"/>
+<approved hash="115,1,31.75,99.06,RTS,,,,,"/>
 <approved hash="115,1,256.54,123.19,RXD1,,,,,"/>
 <approved hash="115,1,269.24,123.19,IO8,,,,,"/>
 </errors>
