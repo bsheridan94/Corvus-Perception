@@ -11,12 +11,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
-		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
-	<body class="is-loading">
+	<body>
+	
+	
+	
+	
+
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -26,52 +31,48 @@
 						<header>
 							<span class="avatar"><img src="images/avatar.jpg" alt="" /></span>
 							<h1>Corvus Perception</h1>
-							<p>USER #00001</p>
+							<p id="userNum">USER #00001</p>
 						</header>
 						<hr />
 						<section id="system">
 							<table>
-								<tr>
-									<td class="not-alerting">
-									<i class="fa fa-server fa-2x link-icon" alt="Temperature"></i>
-									</td>
-									<td>
-									All devices are operational
-									</td>
+								<tr id="SystemRow">
 								</tr>
 							</table>
 						</section>
 						<hr />
 						<section id="alerts">
 							<table>
-								<tr>
+								<tr id="TempRow">
 									<td class="not-alerting">
 									<i class="fa fa-thermometer-three-quarters fa-2x link-icon" alt="Temperature"></i>
 									</td>
-									<td>
-									Alert Status Message goes here
-									</td>
+									<td></td>
 								</tr>
-								<tr>
+								<tr id="LocationRow">
 									<td class="not-alerting">
 									<i class="fa fa-location-arrow fa-2x link-icon" alt="Location"></i>
 									</td>
-									<td>
-									Alert Status Message goes here
-									</td>
+									<td></td>
 								</tr>
-								<tr>
+								<tr id="FallRow">
 									<td class="alerting">
 									<i class="fa fa-medkit fa-2x link-icon" alt="Health Emergency"></i>
 									</td>
 									<td>
-									Alert Status Message goes here
+									USER HAS FALLEN
 									</td>
 									<td>
-									<button type="button">Acknowledge</button>
+									<button type="button" onclick="onFallAck()">Acknowledge</button>
 									</td>
 								</tr>
 							</table>
+						</section>
+						<hr />
+						<section>
+							<h3>Sensitivity Settings</h3>
+							<input id="sensitivitySlider" type="range" min="0" max="2" step="1" value="1"/>
+							<p>Low       Medium		  High </p>
 						</section>
 					</section>
 
@@ -83,15 +84,38 @@
 					</footer>
 
 			</div>
+			
 
-		<!-- Scripts -->
-			<!--[if lte IE 8]><script src="assets/js/respond.min.js"></script><![endif]-->
-			<script>
-				if ('addEventListener' in window) {
-					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
-					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
-				}
-			</script>
+	<!-- Scripts -->
+	<script>
+	
+		if(typeof(EventSource) !== "undefined") {
+			var source = new EventSource("demo.php");
+			source.onmessage = function(event) {
+				document.getElementById("SystemRow").innerHTML = event.data;
+			};
+		} else {
+			document.getElementById("SystemRow").innerHTML = "Sorry, your browser does not support server-sent events...";
+		}
+	
+	function onSysAck() {
+			document.getElementById("SystemRow").innerHTML = '<td class="not-alerting"><i class="fa fa-server fa-2x link-icon" alt="System"></i></td><td>All devices are operational</td>';
+		}
+		
+	function onTempAck() {
+			document.getElementById("TempRow").innerHTML = '<td class="not-alerting"><i class="fa fa-thermometer-three-quarters fa-2x link-icon" alt="Temperature"></i></td><td></td>';
+		}
+		
+	function onLocAck() {
+			document.getElementById("LocationRow").innerHTML = '<td class="not-alerting"><i class="fa fa-location-arrow fa-2x link-icon" alt="Location"></i></td><td></td>';
+		}
+		
+	function onFallAck() {
+			document.getElementById("FallRow").innerHTML = '<td class="not-alerting"><i class="fa fa-medkit fa-2x link-icon" alt="Health Emergency"></i></td><td></td>';
+		}
+	
+	</script>
+	
 
 	</body>
 </html>
