@@ -1,18 +1,19 @@
 <?php
-header('Content-Type: text/event-stream');
-header('Cache-Control: no-cache');
+include('mysql_conn.php');
 
-$SYSTEMnonAlert = '<td class="not-alerting"><i class="fa fa-server fa-2x link-icon" alt="System"></i></td><td>All devices are operational</td>';
+$json = array();
+$sql_select = "SELECT * FROM corvus.alert_status";
+$result = mysqli_query($conn, $sql_select);
 
-$SYSTEMAlert = '<td class="alerting"><i class="fa fa-server fa-2x link-icon" alt="System"></i></td><td>There is an error with one of the devices</td><td><button type="button" onclick="onSysAck()">Acknowledge</button></td>';
+while($row = mysqli_fetch_array ($result))     
+{
+    $bus = array(
+        'AlertType' => $row['AlertType'],
+        'Status' => (int)$row['Status']
+    );
+    array_push($json, $bus);
+}
 
-$TEMPAlert = '<td class="alerting"><i class="fa fa-thermometer-three-quarters fa-2x link-icon" alt="Temperature"></i></td><td>Temperature outside of preset range</td><td><button type="button" onclick="onTempAck()">Acknowledge</button></td>';
-
-$TEMPAlertHigh = '<td class="alerting"><i class="fa fa-thermometer-three-quarters fa-2x link-icon" alt="Temperature"></i></td><td>Temperature too high</td><td><button type="button" onclick="onTempAck()">Acknowledge</button></td>';
-
-$TEMPAlertLow = '<td class="alerting"><i class="fa fa-thermometer-three-quarters fa-2x link-icon" alt="Temperature"></i></td><td>Temperature too low</td><td><button type="button" onclick="onTempAck()">Acknowledge</button></td>';
-
-
-echo "data: {$SYSTEMAlert}\n\n";
-flush();
+$jsonstring = json_encode($json);
+echo $jsonstring;
 ?> 

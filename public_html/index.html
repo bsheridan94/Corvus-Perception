@@ -4,6 +4,11 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+
+<?php
+include('mysql_conn.php');
+?>
+
 <html>
 	<head>
 		<title>Corvus Perception - Alert Page</title>
@@ -34,38 +39,17 @@
 							<p id="userNum">USER #00001</p>
 						</header>
 						<hr />
-						<section id="system">
+						<section id="system_health">
 							<table>
-								<tr id="SystemRow">
-								</tr>
+								<tr id="System"></tr>
 							</table>
 						</section>
 						<hr />
 						<section id="alerts">
 							<table>
-								<tr id="TempRow">
-									<td class="not-alerting">
-									<i class="fa fa-thermometer-three-quarters fa-2x link-icon" alt="Temperature"></i>
-									</td>
-									<td></td>
-								</tr>
-								<tr id="LocationRow">
-									<td class="not-alerting">
-									<i class="fa fa-location-arrow fa-2x link-icon" alt="Location"></i>
-									</td>
-									<td></td>
-								</tr>
-								<tr id="FallRow">
-									<td class="alerting">
-									<i class="fa fa-medkit fa-2x link-icon" alt="Health Emergency"></i>
-									</td>
-									<td>
-									USER HAS FALLEN
-									</td>
-									<td>
-									<button type="button" onclick="onFallAck()">Acknowledge</button>
-									</td>
-								</tr>
+								<tr id="Temperature"></tr>
+								<tr id="Location"></tr>
+								<tr id="Health"></tr>
 							</table>
 						</section>
 						<hr />
@@ -89,29 +73,132 @@
 	<!-- Scripts -->
 	<script>
 	
-		if(typeof(EventSource) !== "undefined") {
-			var source = new EventSource("demo.php");
-			source.onmessage = function(event) {
-				document.getElementById("SystemRow").innerHTML = event.data;
-			};
-		} else {
-			document.getElementById("SystemRow").innerHTML = "Sorry, your browser does not support server-sent events...";
-		}
+	function check_status(){
+		$.get('demo.php',function(data)
+		{
+			data = JSON.parse(data);
+			for(var i = 0; i < data.length; i++) {
+				var obj = data[i];
+
+				switch(obj.AlertType) {
+					case "System":
+					
+						if (obj.Status == 1){
+							var AlertLevel = '<td class="alerting">';
+							var AlertLevel2 = '<td>There is an error with one of the devices</td><td><button type="button" onclick="onSysAck()">Acknowledge</button></td>';
+						}else{
+							var AlertLevel = '<td class="not-alerting">';
+							var AlertLevel2 = '<td>All devices are operational</td>';
+						}
+						
+						var Icon = '<i class="fa fa-server fa-2x link-icon" alt="System"></i></td>';
+						
+						break;
+						
+					case "Temperature":
+					
+						if (obj.Status == 1){
+							var AlertLevel = '<td class="alerting">';
+							var AlertLevel2 = '<td>Temperature outside of preset range</td><td><button type="button" onclick="onTempAck()">Acknowledge</button></td>';
+						}else{
+							var AlertLevel = '<td class="not-alerting">';
+							var AlertLevel2 = '<td></td>';
+						}
+					
+						var Icon = '<i class="fa fa-thermometer-three-quarters fa-2x link-icon" alt="Temperature"></i></td>';
+						break;
+						
+					case "Location":
+						if (obj.Status == 1){
+							var AlertLevel = '<td class="alerting">';
+							var AlertLevel2 = '<td>User outside of range</td><td><button type="button" onclick="onLocAck()">Acknowledge</button></td>';
+						}else{
+							var AlertLevel = '<td class="not-alerting">';
+							var AlertLevel2 = '<td></td>';
+						}
+					
+						var Icon = '<i class="fa fa-location-arrow fa-2x link-icon" alt="Location"></i></td>';
+						break;
+						
+					case "Health":
+						if (obj.Status == 1){
+							var AlertLevel = '<td class="alerting">';
+							var AlertLevel2 = '<td>USER HAS FALLEN</td><td><button type="button" onclick="onFallAck()">Acknowledge</button></td>';
+						}else{
+							var AlertLevel = '<td class="not-alerting">';
+							var AlertLevel2 = '<td></td>';
+						}
+					
+						var Icon = '<i class="fa fa-medkit fa-2x link-icon" alt="Health Emergency"></i></td>';
+					
+						break;
+						
+					default: 
+						console.log(obj.AlertType);
+				};
+				
+				var UpdatedLevel = AlertLevel.concat(Icon, AlertLevel2); 
+				
+				document.getElementById(obj.AlertType).innerHTML = UpdatedLevel;
+			}
+		});
+		
+	};	
+	setInterval(check_status,1000);
+	
+	
 	
 	function onSysAck() {
-			document.getElementById("SystemRow").innerHTML = '<td class="not-alerting"><i class="fa fa-server fa-2x link-icon" alt="System"></i></td><td>All devices are operational</td>';
+	
+		$.ajax({
+				type: 'POST',
+				url: 'AckButton.php',
+				data: {
+					a_type: "System"
+				}
+		});
+	
+			document.getElementById("System").innerHTML = '<td class="not-alerting"><i class="fa fa-server fa-2x link-icon" alt="System"></i></td><td>All devices are operational</td>';
 		}
 		
 	function onTempAck() {
-			document.getElementById("TempRow").innerHTML = '<td class="not-alerting"><i class="fa fa-thermometer-three-quarters fa-2x link-icon" alt="Temperature"></i></td><td></td>';
+	
+		$.ajax({
+				type: 'POST',
+				url: 'AckButton.php',
+				data: {
+					a_type: "Temperature"
+				}
+		});
+	
+			document.getElementById("Temperature").innerHTML = '<td class="not-alerting"><i class="fa fa-thermometer-three-quarters fa-2x link-icon" alt="Temperature"></i></td><td></td>';
 		}
 		
 	function onLocAck() {
-			document.getElementById("LocationRow").innerHTML = '<td class="not-alerting"><i class="fa fa-location-arrow fa-2x link-icon" alt="Location"></i></td><td></td>';
+	
+		$.ajax({
+				type: 'POST',
+				url: 'AckButton.php',
+				data: {
+					a_type: "Location"
+				}
+		});
+	
+			document.getElementById("Location").innerHTML = '<td class="not-alerting"><i class="fa fa-location-arrow fa-2x link-icon" alt="Location"></i></td><td></td>';
 		}
 		
 	function onFallAck() {
-			document.getElementById("FallRow").innerHTML = '<td class="not-alerting"><i class="fa fa-medkit fa-2x link-icon" alt="Health Emergency"></i></td><td></td>';
+	
+		$.ajax({
+				type: 'POST',
+				url: 'AckButton.php',
+				data: {
+					a_type: "Health"
+				}
+		});
+
+		document.getElementById("Health").innerHTML = '<td class="not-alerting"><i class="fa fa-medkit fa-2x link-icon" alt="Health Emergency"></i></td><td></td>';
+			
 		}
 	
 	</script>
