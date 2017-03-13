@@ -22,11 +22,6 @@ include('mysql_conn.php');
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body>
-	
-	
-	
-	
-
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -57,6 +52,13 @@ include('mysql_conn.php');
 							<h3>Sensitivity Settings</h3>
 							<input id="sensitivitySlider" type="range" min="0" max="2" step="1" value="1"/>
 							<p>Low       Medium		  High </p>
+							
+							<table>
+								<tr>
+									<td><button type="button" onclick="temperatureAlertDemo()">Temp Alert Demo</button></td>
+									<td><button type="button" onclick="AlertDemo()"> All Alert Demo</button></td>
+								</tr>
+							</table>
 						</section>
 					</section>
 
@@ -72,8 +74,8 @@ include('mysql_conn.php');
 
 	<!-- Scripts -->
 	<script>
-	
-	function check_status(){
+		
+		function check_status(){
 		$.get('demo.php',function(data)
 		{
 			data = JSON.parse(data);
@@ -99,7 +101,14 @@ include('mysql_conn.php');
 					
 						if (obj.Status == 1){
 							var AlertLevel = '<td class="alerting">';
-							var AlertLevel2 = '<td>Temperature outside of preset range</td><td><button type="button" onclick="onTempAck()">Acknowledge</button></td>';
+							var AlertLevel2_1 = '<td>Temperature is ';
+							var AlertLevel2_2 = '</td><td><button type="button" onclick="onTempAck()">Acknowledge</button></td>';
+							
+							if (typeof temperatureResult == 'undefined' || temperatureResult == "") {
+								temperatureResult = "outside of preset range"
+							}
+							
+							var AlertLevel2 = AlertLevel2_1.concat(temperatureResult, AlertLevel2_2); 
 						}else{
 							var AlertLevel = '<td class="not-alerting">';
 							var AlertLevel2 = '<td></td>';
@@ -147,7 +156,6 @@ include('mysql_conn.php');
 	setInterval(check_status,1000);
 	
 	
-	
 	function onSysAck() {
 	
 		$.ajax({
@@ -157,9 +165,7 @@ include('mysql_conn.php');
 					a_type: "System"
 				}
 		});
-	
-			document.getElementById("System").innerHTML = '<td class="not-alerting"><i class="fa fa-server fa-2x link-icon" alt="System"></i></td><td>All devices are operational</td>';
-		}
+	};
 		
 	function onTempAck() {
 	
@@ -170,9 +176,9 @@ include('mysql_conn.php');
 					a_type: "Temperature"
 				}
 		});
-	
-			document.getElementById("Temperature").innerHTML = '<td class="not-alerting"><i class="fa fa-thermometer-three-quarters fa-2x link-icon" alt="Temperature"></i></td><td></td>';
-		}
+		
+		temperatureResult = ""
+	}
 		
 	function onLocAck() {
 	
@@ -183,9 +189,7 @@ include('mysql_conn.php');
 					a_type: "Location"
 				}
 		});
-	
-			document.getElementById("Location").innerHTML = '<td class="not-alerting"><i class="fa fa-location-arrow fa-2x link-icon" alt="Location"></i></td><td></td>';
-		}
+	}
 		
 	function onFallAck() {
 	
@@ -196,11 +200,27 @@ include('mysql_conn.php');
 					a_type: "Health"
 				}
 		});
-
-		document.getElementById("Health").innerHTML = '<td class="not-alerting"><i class="fa fa-medkit fa-2x link-icon" alt="Health Emergency"></i></td><td></td>';
-			
-		}
+	}
 	
+	
+	function AlertDemo() {
+	
+		$.ajax({
+			type: 'POST',
+			url: 'AllAlertDemo.php',
+			});
+	}
+		
+	function temperatureAlertDemo() {
+	
+		$.get('temperatureAlert.php',function(data){
+			temperatureResultStr = data;
+		});
+		temperatureResult = temperatureResultStr.concat(" degrees");
+		return temperatureResult
+		
+	};
+		
 	</script>
 	
 
