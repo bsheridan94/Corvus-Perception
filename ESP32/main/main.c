@@ -7,18 +7,8 @@
 #include "driver/gpio.h"
 #include <stdio.h>
 #include "driver/i2c.h"
+#include "esp_log.h"
 
-#define I2C_MASTER_SCL_IO    19    /*!< gpio number for I2C master clock */
-#define I2C_MASTER_SDA_IO    18    /*!< gpio number for I2C master data  */
-#define I2C_MASTER_NUM I2C_NUM_0   /*!< I2C port number for master dev */
-#define I2C_MASTER_TX_BUF_DISABLE   0   /*!< I2C master do not need buffer */
-#define I2C_MASTER_RX_BUF_DISABLE   0   /*!< I2C master do not need buffer */
-#define I2C_MASTER_FREQ_HZ    100000     /*!< I2C master clock frequency */
-
-
-#define BH1750_SENSOR_ADDR  0x23    /*!< slave address for BH1750 sensor */
-#define BH1750_CMD_START    0x23    /*!< Command to set measure mode */
-#define ESP_SLAVE_ADDR 0x28         /*!< ESP32 slave address, you can set any 7bit value */
 #define WRITE_BIT  I2C_MASTER_WRITE /*!< I2C master write */
 #define READ_BIT   I2C_MASTER_READ  /*!< I2C master read */
 #define ACK_CHECK_EN   0x1     /*!< I2C master will check ack from slave*/
@@ -45,15 +35,14 @@
 #define TSL2561_ADDR_LOW        (0x29)
 #define TSL2561_ADDR_FLOAT      (0x39)    // Default address (pin left floating)
 #define TSL2561_ADDR_HIGH       (0x49)
-//#define TSL2561_ADDR_CMD      (0xAC)
 
 #define TSL2561_ADDR TSL2561_ADDR_FLOAT
 
 #define TSL2561_COMMAND_BIT       (0x80)
 #define TSL2561_CONTROL_POWERON   (0x03)
 
-#define I2C_MASTER_SCL_IO    19    /*!< gpio number for I2C master clock */
-#define I2C_MASTER_SDA_IO    18    /*!< gpio number for I2C master data  */
+#define I2C_MASTER_SCL_IO    17    /*!< gpio number for I2C master clock */
+#define I2C_MASTER_SDA_IO    16    /*!< gpio number for I2C master data  */
 #define I2C_MASTER_NUM I2C_NUM_1   /*!< I2C port number for master dev */
 #define I2C_MASTER_TX_BUF_DISABLE   0   /*!< I2C master do not need buffer */
 #define I2C_MASTER_RX_BUF_DISABLE   0   /*!< I2C master do not need buffer */
@@ -192,7 +181,7 @@ long calculateLux(uint16_t ch0, uint16_t ch1) {
     return lux;
 }
 
-void callI2C(uint8_t addr, uint8_t *data){
+void readTSL2561(uint8_t addr, uint8_t *data){
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
     ESP_ERROR_CHECK(i2c_master_start(cmd));
     ESP_ERROR_CHECK(i2c_master_write_byte(cmd, (TSL2561_ADDR << 1) | I2C_MASTER_WRITE, 1));
@@ -222,10 +211,10 @@ esp_err_t read_current_lux() {
     uint8_t data1_l = 0;
     uint8_t data2_l = 0;
 
-    callI2C(0x9C, &data1_l);
-    callI2C(0x9D, &data1_h);
-    callI2C(0x9E, &data2_l);
-    callI2C(0x9F, &data2_h);
+    readTSL2561(0x9C, &data1_l);
+    readTSL2561(0x9D, &data1_h);
+    readTSL2561(0x9E, &data2_l);
+    readTSL2561(0x9F, &data2_h);
 
     printf("data_1l: %02x\n", data1_l);
     printf("data_1h: %02x\n", data1_h);
@@ -240,6 +229,26 @@ esp_err_t read_current_lux() {
     ESP_LOGI("mailbox", "calculated lux value %ld", lux);
 
     return ESP_OK;
+}
+
+void readSi7201(uint8_t addr, uint8_t *data){
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    ESP_ERROR_CHECK(i2c_master_start(cmd));
+    ESP_ERROR_CHECK(i2c_master_write_byte(cmd, (SI7021_DEFAULT_ADDRESS  << 1) | I2C_MASTER_WRITE, 1));
+    i2c_master_write_byte(cmd, addr, 1);
+    i2c_master_stop(cmd);
+    i2c_master_cmd_begin(I2C_NUM_0, cmd, 500 / portTICK_RATE_MS);
+
+    i2c_cmd_link_delete(cmd);
+
+    cmd = i2c_cmd_link_create();
+    ESP_ERROR_CHECK(i2c_master_start(cmd));
+    ESP_ERROR_CHECK(i2c_master_write_byte(cmd, (SI7021_DEFAULT_ADDRESS < 1) | I2C_MASTER_READ, 1));
+    i2c_master_read_byte(cmd, data, 1);
+    i2c_master_stop(cmd);
+    i2c_master_cmd_begin(I2C_NUM_0, cmd, 500 / portTICK_RATE_MS);
+
+    i2c_cmd_link_delete(cmd);
 }
 
 void app_main(void) {
