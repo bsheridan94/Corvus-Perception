@@ -55,7 +55,7 @@ include('mysql_conn.php');
 							<form action="SensitivityChange.php" type="POST">
 							<p id="SensitivitySlider">
 							<!-- <input id="SensitivitySlider" name="SensitivitySlider" type="range" min="0" max="2" step="1" value="">  -->
-							<p><table id="CurrentSensitivity"></table></p>
+							<table id="CurrentSensitivity"></table>
 							<input type="submit" value="Submit">
 							</form>
 						</section>
@@ -166,6 +166,9 @@ include('mysql_conn.php');
 						if (obj.Status == 1){
 							var AlertLevel = '<td class="alerting">';
 							var AlertLevel2 = '<td>USER HAS FALLEN</td><td><button type="button" onclick="onFallAck()">Acknowledge</button></td>';
+						}else if(obj.Status == 2){
+							var AlertLevel = '<td class="alerting">';
+							var AlertLevel2 = '<td>USER HAS REQUESTED ASSISTANCE</td><td><button type="button" onclick="onFallAck()">Acknowledge</button></td>';
 						}else{
 							var AlertLevel = '<td class="not-alerting">';
 							var AlertLevel2 = '<td></td>';
