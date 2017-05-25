@@ -10,7 +10,7 @@ db_name = rds_config.db_name
 
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+#logger.setLevel(logging.INFO)
 
 try:
     conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=5)
@@ -20,10 +20,6 @@ except:
 
 logger.info("SUCCESS: Connection to RDS mysql instance succeeded")
 
-
-    """
-    This function fetches content from mysql RDS instance
-    """
 
 with conn.cursor() as cur:
 	cur.execute("UPDATE alert_status SET Status='1' WHERE AlertType='Health'")  
