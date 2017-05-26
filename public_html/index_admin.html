@@ -21,8 +21,7 @@ include('mysql_conn.php');
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
-	
-	<body onload="findSensitivity()">
+	<body>
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -34,30 +33,13 @@ include('mysql_conn.php');
 							<h1>Corvus Perception</h1>
 							<p id="userNum">USER #00001</p>
 						</header>
-						<hr />
-						<section id="system_health">
 							<table>
-								<tr id="System"></tr>
+								<tr>
+									<td><button type="button" onclick="temperatureAlertDemo()">Temp Alert Demo</button></td>
+									<td><button type="button" onclick="AlertDemo()"> All Alert Demo</button></td>
+									<td><button type="button" onclick="LocationAlertDemo()">Location Alert</button></td>
+								</tr>
 							</table>
-						</section>
-						<hr />
-						<section id="alerts">
-							<table>
-								<tr id="Temperature"></tr>
-								<tr id="Location"></tr>
-								<tr id="Health"></tr>
-							</table>
-						</section>
-						<hr />
-						<section>
-							<h3>Sensitivity Settings</h3>
-							<p id="Sensitivity">
-							<form action="SensitivityChange.php" type="POST">
-							<p id="SensitivitySlider">
-							<!-- <input id="SensitivitySlider" name="SensitivitySlider" type="range" min="0" max="2" step="1" value="">  -->
-							<table id="CurrentSensitivity"></table>
-							<input type="submit" value="Submit">
-							</form>
 						</section>
 					</section>
 
@@ -73,40 +55,6 @@ include('mysql_conn.php');
 
 	<!-- Scripts -->
 	<script>
-	
-		function findSensitivity(){
-		$.get('findSensitivity.php',function(data)
-		{
-			data = JSON.parse(data);
-			for(var i = 0; i < data.length; i++) {
-				var obj = data[i];
-			}
-			
-			SensitivityLevel = obj.Status;
-			var SenInput1 = '<input id="SensitivitySlider" name="SensitivitySlider" type="range" min="0" max="2" step="1" value="';
-			var SenInput2 = '">';
-			
-			var SenInput1 = '<input id="SensitivitySlider" name="SensitivitySlider" type="range" min="0" max="2" step="1" value="';
-			var SenInput2 = '">';
-			
-			var SenInputBar = SenInput1.concat(SensitivityLevel, SenInput2);
-			
-			document.getElementById("SensitivitySlider").innerHTML = SenInputBar;
-			
-			
-			if ( SensitivityLevel == 0){
-				SenLevel = "<td class='not-alerting'>Low</td><td>Medium</td><td>High</td>";
-			}
-			else if (SensitivityLevel == 1){
-				SenLevel = "<td>Low</td><td class='not-alerting'>Medium</td><td>High</td>";
-			}else{
-				SenLevel = "<td>Low</td><td>Medium</td><td class='not-alerting'>High</td>";
-			}
-			
-			document.getElementById("CurrentSensitivity").innerHTML = SenLevel;
-			
-		});
-		};
 		
 		function check_status(){
 		$.get('demo.php',function(data)
@@ -166,9 +114,6 @@ include('mysql_conn.php');
 						if (obj.Status == 1){
 							var AlertLevel = '<td class="alerting">';
 							var AlertLevel2 = '<td>USER HAS FALLEN</td><td><button type="button" onclick="onFallAck()">Acknowledge</button></td>';
-						}else if(obj.Status == 2){
-							var AlertLevel = '<td class="alerting">';
-							var AlertLevel2 = '<td>USER HAS REQUESTED ASSISTANCE</td><td><button type="button" onclick="onFallAck()">Acknowledge</button></td>';
 						}else{
 							var AlertLevel = '<td class="not-alerting">';
 							var AlertLevel2 = '<td></td>';
@@ -178,27 +123,6 @@ include('mysql_conn.php');
 					
 						break;
 						
-					case "Sensitivity":
-					//temp change to current value of slider
-						if (obj.Status != SensitivityLevel){
-							var AlertLevel = '<p class="alerting">The sensitivity has changed, please refreash the webpage</p>';
-							var AlertLevel2 = '';
-							
-						}else{
-							var AlertLevel = '';
-							var AlertLevel2 = '';
-						}
-						var Icon = '';
-						break;
-						
-				/*
-						var AlertLevel = '<input id="Sensitivity" name="Sensitivity" type="range" min="0" max="2" step="1" oninput="'
-						var AlertLevel2 = '">'
-						
-						var Icon = obj.Status;
-						break;
-				*/
-				
 					default: 
 						console.log(obj.AlertType);
 				};
@@ -210,7 +134,6 @@ include('mysql_conn.php');
 		});
 		
 	};	
-	setInterval(check_status,1000);
 	
 	
 	function onSysAck() {
@@ -259,17 +182,6 @@ include('mysql_conn.php');
 		});
 	}
 	
-		function onSenChange() {
-	
-		$.ajax({
-				type: 'POST',
-				url: 'SensitivityChange.php',
-				data: {
-					a_value: document.getElementByName("SensitivitySlider").value
-				}
-		});
-	}
-	
 	
 	function AlertDemo() {
 	
@@ -288,7 +200,6 @@ include('mysql_conn.php');
 		return temperatureResult
 		
 	};
-
 	
 	function LocationAlertDemo() {
 	
@@ -297,6 +208,7 @@ include('mysql_conn.php');
 			url: 'locationAlert.php',
 			});
 	}
+		
 		
 	</script>
 	

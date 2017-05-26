@@ -86,6 +86,14 @@ while ( $HighLimit < $MaxLimit) {
 		break;
 	}
 	$LowLimit = $HighLimit;
+	
+	$HighLimit_sql = "SELECT max(id) FROM corvus.temperature";
+	$HighLimit_sqlResult = mysqli_query($conn, $HighLimit_sql);
+
+	$HighLimit_sqlResult = mysqli_fetch_array($HighLimit_sqlResult);
+	sleep(0.01);
+	$MaxLimit = (int)$HighLimit_sqlResult[0];
+	
 }
 
 
